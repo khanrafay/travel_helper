@@ -17,6 +17,7 @@ const options = {
 };
 
 export const getPlacesData = async ({ sw, ne }) => {
+    console.log('---', sw, ne);
     try {
         const { data: { data } } = await axios.get(URL, {
             params: {
