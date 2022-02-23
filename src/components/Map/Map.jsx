@@ -8,11 +8,12 @@ import useStyles from './style.js';
 
 
 
-const Map = ({ setCoordinates, setBounds, coordinates }) => {
+const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
     const classes = useStyles();
-    const isMobile = useMediaQuery('(min-width:600px)');
+    const isDesktop = useMediaQuery('(min-width:600px)');
 
-    
+    const dummyImage = "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80";
+
 
     return (<div className={classes.mapContainer}>
         <GoogleMapReact
@@ -23,12 +24,40 @@ const Map = ({ setCoordinates, setBounds, coordinates }) => {
             margin={[50, 50, 50, 50]}
             options={''}
             onChange={(e) => {
-                console.log('e', e);
                 setCoordinates({ lat: e.center.lat, lng: e.center.lng });
                 setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
-              }}
+            }}
             onChildClick={''}
-        />
+        >
+            {places?.map((place, index) => (
+                <div className={classes.markerContainer}
+                    lat={Number(place.latitude)}
+                    lng={Number(place.longitude)}
+                    key={index}
+                >
+                    {!isDesktop ? (
+                        <LocationOnOutlinedIcon color="primary"
+                            fontSize='large' />
+                    ) :
+                        (
+                            <Paper elevation={3} className={classes.paper}>
+                                <Typography
+                                    className={classes.Typography}
+                                    gutterBottom
+                                    variant='subtitle2'
+                                >
+                                    <img
+                                        className={classes.pointer}
+                                        height="150px"
+                                        src={place.photo ? place.photo.images.small.url : dummyImage}
+                                        alt={place.name}
+                                    />
+                                </Typography>
+                            </Paper>
+                        )}
+                </div>
+            ))}
+        </GoogleMapReact>
     </div>);
 }
 

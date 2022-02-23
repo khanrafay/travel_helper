@@ -5,8 +5,7 @@ import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './style';
 import { Place } from '@material-ui/icons';
 
-const List = ({places}) => {
-    console.log('place', places);
+const List = ({ places }) => {
     const classes = useStyles();
     const [type, setType] = useState('restaurants');
     const [rating, setRating] = useState(0);

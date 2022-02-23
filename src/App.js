@@ -11,7 +11,7 @@ const App = () => {
     const [places, setPlaces] = useState();
 
     const [coordinates, setCoordinates] = useState();
-    const [bounds, setBounds] = useState(null);
+    const [bounds, setBounds] = useState({});
 
 
     useEffect(() => {
@@ -21,9 +21,8 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        console.log('cooooo', coordinates, bounds);
         getPlacesData(bounds)
-            .then((data) => { 
+            .then((data) => {
                 setPlaces(data);
             })
     }, [coordinates, bounds])
@@ -35,7 +34,7 @@ const App = () => {
             <Grid container spacing={3} style={{ width: '100%' }}>
                 <Grid item xs={12} md={4}>
                     <List
-                      places={places}
+                        places={places}
                     />
                 </Grid>
                 <Grid item xs={12} md={8} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -43,6 +42,7 @@ const App = () => {
                         setCoordinates={setCoordinates}
                         setBounds={setBounds}
                         coordinates={coordinates}
+                        places={places}
                     />
                 </Grid>
             </Grid>

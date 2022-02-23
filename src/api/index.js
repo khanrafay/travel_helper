@@ -17,7 +17,6 @@ const options = {
 };
 
 export const getPlacesData = async ({ sw, ne }) => {
-    console.log('---', sw, ne);
     try {
         const { data: { data } } = await axios.get(URL, {
             params: {
@@ -31,7 +30,7 @@ export const getPlacesData = async ({ sw, ne }) => {
                 'x-rapidapi-key': '69cfed012emsh9d500083783d80bp1d9468jsna0e520d46c86'
             }
         });
-        
+
         return data;
     } catch (error) {
         console.log(error);
