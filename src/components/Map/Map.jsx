@@ -8,7 +8,7 @@ import useStyles from './style.js';
 
 
 
-const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
+const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }) => {
     const classes = useStyles();
     const isDesktop = useMediaQuery('(min-width:600px)');
 
@@ -27,7 +27,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
                 setCoordinates({ lat: e.center.lat, lng: e.center.lng });
                 setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
             }}
-            onChildClick={''}
+            onChildClick={(child) => setChildClicked(child)}
         >
             {places?.map((place, index) => (
                 <div className={classes.markerContainer}
@@ -45,13 +45,14 @@ const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
                                     className={classes.Typography}
                                     gutterBottom
                                     variant='subtitle2'
-                                >
+                                > 
                                     <img
                                         className={classes.pointer}
-                                        height="150px"
+                                        height="50px"
                                         src={place.photo ? place.photo.images.small.url : dummyImage}
                                         alt={place.name}
                                     />
+                                     <Rating size="small" value={Number(place.rating)} readOnly/>
                                 </Typography>
                             </Paper>
                         )}

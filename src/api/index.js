@@ -16,9 +16,10 @@ const options = {
     }
 };
 
-export const getPlacesData = async ({ sw, ne }) => {
+export const getPlacesData = async ({ sw, ne, type }) => {
+    console.log('sd', type);
     try {
-        const { data: { data } } = await axios.get(URL, {
+        const { data: { data } } = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
             params: {
                 bl_latitude: sw.lat,
                 tr_latitude: ne.lat,
